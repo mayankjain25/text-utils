@@ -21,7 +21,7 @@ export default function TextForm(props) {
 
    
     const handleUpClick = () =>{
-        // console.log("Upper was clicked");
+        console.log("Upper was clicked");
         let newText=text.toUpperCase();
         setText(newText);
     }
@@ -86,14 +86,14 @@ export default function TextForm(props) {
             alert(key + " occurs "+ count+ " times")
     }
     return (
-        <div>
-            <div className="mb-3 container">
-                <h1>{props.heading}</h1>
+        <div style={{color: props.mode==='light'?'black':'white'}}>
+            <div className={`mb-3 container`} >
+                <h1 className="textform-heading">{props.heading}</h1>
                 <div className="mb-3">
                     {/* <label for="my-textarea" className="form-label my-3">{props.heading}</label> */}
                     
-                    <button>Copy</button>
-                    <textarea className="form-control input-textarea" id="my-textarea" rows="10" value={text} onChange={handleOnChange} onKeyDown={(e)=>{
+                    
+                    <textarea className="form-control input-textarea" style={{backgroundColor: props.mode==='light'?'white':'lightgray'}} id="my-textarea" rows="10" value={text} onChange={handleOnChange} onKeyDown={(e)=>{
                         if(e.key==='Backspace')
                         {resetWord();console.log("Backspace")}
                         }
@@ -103,23 +103,31 @@ export default function TextForm(props) {
 
                     <CopyToClipboard text={text} onCopy={onCopyText}>
                             <div className="copy-area">
-                            <button class="btn btn-dark">Copy</button>
+                            <button className="btn btn-dark my-3">Copy</button>
                             
                             </div>
                      </CopyToClipboard>
                 </div> 
             </div>
 
-            <p>{numWords} Words, {numChar} Characters</p>
-            <button onClick={handleUpClick}  className="btn btn-primary">Convert to Upper Case</button>
-            <button onClick={handleLowClick} className="btn btn-primary">Convert to Lower Case</button>
-            <button onClick={handleTrimClick} className="btn btn-primary">Remove Trailing spaces</button>
-            <button onClick={handleCapitalizeClick} className="btn btn-primary">Capitalize String</button>
-            <button onClick={handleOccurrenceClick} class="btn btn-primary">Find Occurrence</button>
-
             <div className="container">
+
+            <p>{numWords} Words, {numChar} Characters</p>
+            <div className="text-btn-container">
+
+                <button onClick={handleUpClick}  className="btn btn-primary text-buttons ">Convert to Upper Case</button>
+                <button onClick={handleLowClick} className="btn btn-primary text-buttons">Convert to Lower Case</button>
+                <button onClick={handleTrimClick} className="btn btn-primary text-buttons">Remove Trailing spaces</button>
+                <button onClick={handleCapitalizeClick} className="btn btn-primary text-buttons">Capitalize String</button>
+                <button onClick={handleOccurrenceClick} class="btn btn-primary text-buttons">Find Occurrence</button>
+            </div>
+            </div>
+
+            
+
+            <div className="container text-preview">
                 <h2>Text Preview</h2>
-                <p>{text}</p>
+                <p>{text===""?"(Enter some text in the textbox to preview)":text}</p>
             </div>
         </div>
     )
