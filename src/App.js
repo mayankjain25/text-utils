@@ -6,19 +6,19 @@ import About from './components/About';
 import Navbar from './components/Navbar';
 import TextForm from './components/TextForm'
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+// import {
+//   BrowserRouter as Router,
+//   Switch,
+//   Route,
+//   Link
+// } from "react-router-dom";
 
 function App() {
 
   const[mode,setMode] = useState('light')
   const [alert,setAlert] = useState(null)
 
-  const [color,setColor] = useState(null)
+  const [color,setColor] = useState("#000000")
 
   const showAlert = (message,type) =>{
 
@@ -50,27 +50,27 @@ function App() {
 
   return (
    <>
-        <Router>
+        {/* <Router> */}
           <Navbar title="TextUtils"  mode={mode}/>
 
           <Alert alert={alert} />
 
-          <Switch>
-            <Route exact path="/about">
-              <div className="container">
+          {/* <Switch>
+            <Route exact path="/about"> */}
+              {/* <div className="container">
 
               <About />
               </div>
-            </Route>
+            </Route> */}
           
-            <Route exact path="/">
+            {/* <Route exact path="/"> */}
               <div className="container">
 
             <TextForm heading="Enter the text" mode={mode} toggleMode={toggleMode} showAlert={showAlert} colorPicker={colorPicker} /> 
               </div>
-            </Route>
-          </Switch>
-        </Router>
+            {/* </Route>
+          </Switch> */}
+        {/* </Router> */}
         
         
   
