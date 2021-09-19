@@ -21,10 +21,24 @@
 
 }
 
+.copy-and-dark{
+    display:flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.dark-mode-toggler{
+    margin-left: 2rem;
+}
+
 .text-preview{
     margin-top: 2rem;
     /* text-align: center; */
     /* border: 1px solid black; */
+}
+
+.color-picker-container{
+    margin-left:1.34rem;
 }
 
 @media screen and (max-width: 768px) {

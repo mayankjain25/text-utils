@@ -9,10 +9,12 @@ export default function TextForm(props) {
     const [numWords,setNumWords] = useState(0);
     const [numChar,setNumChar] = useState(0);
     const [isCopied,setIsCopied]=useState(false);
+   
     
 
 
     const onCopyText=()=>{
+        props.showAlert("Copied!","success")
         setIsCopied(true);
         setTimeout(()=>{
             setIsCopied(false);
@@ -24,6 +26,7 @@ export default function TextForm(props) {
         console.log("Upper was clicked");
         let newText=text.toUpperCase();
         setText(newText);
+        props.showAlert("Converted to Upper Case Successfully!","success")
     }
 
     const handleOnChange = (event)=>{
@@ -36,13 +39,24 @@ export default function TextForm(props) {
     }
 
     const handleLowClick=()=>{
-        let newText=text.toLowerCase();
-        
-        setText(newText);
+
+
+        if(text.length===0){
+            props.showAlert("Text Area empty","danger")
+        }
+        else{
+
+            
+                    let newText=text.toLowerCase();
+                    
+                    setText(newText);
+                    props.showAlert("Converted to Lower Case Successfully","success")
+        }
     }
 
     const handleTrimClick=()=>{
         setText(text.trim());
+        props.showAlert("Trimmed successfully","success")
     }
 
     const handleCapitalizeClick=()=>{
@@ -57,17 +71,25 @@ export default function TextForm(props) {
 
         newText=arr.join(" ");
         setText(newText);
+        props.showAlert("Capitalized Successfully","success")
     }
 
-    const resetWord=()=>{
-        setNumWords(0);
-        setNumChar(0);
-    }
+    // const resetWord=()=>{
+    //     setNumWords(0);
+    //     setNumChar(0);
+    // }
 
     const countWords=(text)=>{
-        const newT=text.split(" ");
-        if(newT===[("")])setNumWords(0);
-        else setNumWords(newT.length);
+
+        if(text.length===0) setNumWords(0)
+        else{
+            
+            const newT=text.split(" ");
+            
+            // if(newT[0]===" ")setNumWords(0);
+            setNumWords(newT.length);
+        }
+
     }
 
     const countCharacters = (text) =>{
@@ -83,8 +105,15 @@ export default function TextForm(props) {
                 if(arr[i]===key) count=count+1;
             }
 
-            alert(key + " occurs "+ count+ " times")
+            if(count===0) props.showAlert("No occurrence found","danger")
+            else props.showAlert(`${key} found ${count} times`,"success")
+            // alert(key + " occurs "+ count+ " times")
     }
+
+    const colorFunc=(event)=>{
+        
+        props.colorPicker(event.target.value)
+      }
     return (
         <div style={{color: props.mode==='light'?'black':'white'}}>
             <div className={`mb-3 container`} >
@@ -93,20 +122,36 @@ export default function TextForm(props) {
                     {/* <label for="my-textarea" className="form-label my-3">{props.heading}</label> */}
                     
                     
-                    <textarea className="form-control input-textarea" style={{backgroundColor: props.mode==='light'?'white':'lightgray'}} id="my-textarea" rows="10" value={text} onChange={handleOnChange} onKeyDown={(e)=>{
+                    <textarea className="form-control input-textarea" style={{backgroundColor: props.mode==='light'?'white':'lightgray'}} id="my-textarea" rows="10" value={text} onChange={handleOnChange} 
+                    onKeyDown={(e)=>{
                         if(e.key==='Backspace')
-                        {resetWord();console.log("Backspace")}
+                        {if(numChar>0)setNumChar(numChar-1)}
                         }
                         }>
                         
                     </textarea>
+
+                        <div className="copy-and-dark">
 
                     <CopyToClipboard text={text} onCopy={onCopyText}>
                             <div className="copy-area">
                             <button className="btn btn-dark my-3">Copy</button>
                             
                             </div>
+                            
                      </CopyToClipboard>
+
+                     <div className={`form-check form-switch dark-mode-toggler `}>
+                                <input className="form-check-input" onClick={props.toggleMode} type="checkbox" id="flexSwitchCheckDefault" />
+                                <label className={`form-check-label text-${props.mode==='light'?'dark':'light'}`}
+                                htmlFor="flexSwitchCheckDefault">Enable Dark Mode</label>
+                               
+                     </div>
+
+                     <div className="color-picker-container">
+                     <input title="Any color picked from here will be applied if you press the dark mode switch" type="color" name="colorchooser" onChange={colorFunc} />
+                     </div>
+                        </div>
                 </div> 
             </div>
 
