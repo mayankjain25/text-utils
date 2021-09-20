@@ -66,7 +66,7 @@ function App() {
             {/* <Route exact path="/"> */}
               <div className="container">
 
-            <TextForm heading="Enter the text" mode={mode} toggleMode={toggleMode} showAlert={showAlert} colorPicker={colorPicker} /> 
+            <TextForm heading="TextUtils - The Text Utility App" mode={mode} toggleMode={toggleMode} showAlert={showAlert} colorPicker={colorPicker} /> 
               </div>
             {/* </Route>
           </Switch> */}

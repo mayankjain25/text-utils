@@ -6,8 +6,8 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 
 export default function TextForm(props) {
     const [text,setText]=useState("")
-    const [numWords,setNumWords] = useState(0);
-    const [numChar,setNumChar] = useState(0);
+    // const [numWords,setNumWords] = useState(0);
+    // const [numChar,setNumChar] = useState(0);
     const [isCopied,setIsCopied]=useState(false);
    
     
@@ -31,8 +31,8 @@ export default function TextForm(props) {
 
     const handleOnChange = (event)=>{
         setText(event.target.value)
-        countWords(text);
-        countCharacters(text);
+        // countWords(text);
+        // countCharacters(text);
         // let len = countWords(text)
         // setNumWords(len)
         // console.log("change triggered");
@@ -79,22 +79,15 @@ export default function TextForm(props) {
     //     setNumChar(0);
     // }
 
-    const countWords=(text)=>{
+    // const countWords=(text)=>{
 
-        if(text.length===0) setNumWords(0)
-        else{
-            
-            const newT=text.split(" ");
-            
-            // if(newT[0]===" ")setNumWords(0);
-            setNumWords(newT.length);
-        }
+    //     setNumWords(text.split(" ").filter((element)=>{return element.length!==0}).length)
 
-    }
+    // }
 
-    const countCharacters = (text) =>{
-        setNumChar(text.length)
-    }
+    // const countCharacters = (text) =>{
+    //     setNumChar(text.length)
+    // }
     
     const handleOccurrenceClick=()=>{
 
@@ -122,12 +115,8 @@ export default function TextForm(props) {
                     {/* <label for="my-textarea" className="form-label my-3">{props.heading}</label> */}
                     
                     
-                    <textarea className="form-control input-textarea" style={{backgroundColor: props.mode==='light'?'white':'lightgray'}} id="my-textarea" rows="10" value={text} onChange={handleOnChange} 
-                    onKeyDown={(e)=>{
-                        if(e.key==='Backspace')
-                        {if(numChar>0)setNumChar(numChar-1)}
-                        }
-                        }>
+                    <textarea placeholder="Enter your text here" className="form-control input-textarea" style={{backgroundColor: props.mode==='light'?'white':'lightgray'}} id="my-textarea" rows="10" value={text} onChange={handleOnChange} 
+                    >
                         
                     </textarea>
 
@@ -157,14 +146,14 @@ export default function TextForm(props) {
 
             <div className="container">
 
-            <p>{numWords} Words, {numChar} Characters</p>
+            <p>{text.split(" ").filter((element)=>{return element.length!==0}).length} Words, {text.length} Characters</p>
             <div className="text-btn-container">
 
-                <button onClick={handleUpClick}  className="btn btn-primary text-buttons ">Convert to Upper Case</button>
-                <button onClick={handleLowClick} className="btn btn-primary text-buttons">Convert to Lower Case</button>
-                <button onClick={handleTrimClick} className="btn btn-primary text-buttons">Remove Trailing spaces</button>
-                <button onClick={handleCapitalizeClick} className="btn btn-primary text-buttons">Capitalize String</button>
-                <button onClick={handleOccurrenceClick} class="btn btn-primary text-buttons">Find Occurrence</button>
+                <button disabled={text.length===0} onClick={handleUpClick}  className="btn btn-primary text-buttons ">Convert to Upper Case</button>
+                <button disabled={text.length===0} onClick={handleLowClick} className="btn btn-primary text-buttons">Convert to Lower Case</button>
+                <button disabled={text.length===0} onClick={handleTrimClick} className="btn btn-primary text-buttons">Remove Trailing spaces</button>
+                <button disabled={text.length===0} onClick={handleCapitalizeClick} className="btn btn-primary text-buttons">Capitalize String</button>
+                <button disabled={text.length===0} onClick={handleOccurrenceClick} class="btn btn-primary text-buttons">Find Occurrence</button>
             </div>
             </div>
 
